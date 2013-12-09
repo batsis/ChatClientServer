@@ -3,8 +3,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-
-
 public class FileHandler {
 
 	Properties prop = new Properties();
@@ -12,8 +10,8 @@ public class FileHandler {
 	FileHandler(){
 
 		try {
-			prop.load(new FileInputStream("config.properties"));
-			//saveFile();
+			//prop.load(new FileInputStream("config.properties"));
+			saveFile();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
