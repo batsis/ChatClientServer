@@ -1,3 +1,5 @@
+import gui_package.GUI;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -81,8 +83,6 @@ public class UserNameGUI {
 					
 				}
 				
-				GUI gui = new GUI(username);
-				frame.setVisible(false);
 			}
 		});
 		btnMagicsToHapen.setBounds(6, 131, 161, 23);

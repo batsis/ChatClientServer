@@ -1,54 +1,36 @@
-import java.awt.EventQueue;
+package gui_package;
+
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.File;
 
-import javax.swing.JList;
+
 
 
 public class GUI {
 
 	private JFrame frame;
 	
-	private String bob = "Bob";
 	private String user;
 	private String output, s = "";
-
+	
+	private JTextArea chatOutput;
+	private JTextArea userView;
 	
 	
-	MessSendRecive Mess;
-	
-	Smile smile;
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					GUI window = new GUI();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-	
-	
-
 	/**
 	 * Create the application.
 	 * @param username 
 	 */
-	public GUI(String username) {
-		
-		user = username;
+	public GUI() {
 		
 		initialize();
 	}
@@ -67,9 +49,9 @@ public class GUI {
 		scroll_chatOutput.setBounds(10, 11, 369, 241);
 		frame.getContentPane().add(scroll_chatOutput);
 		// Fönster för chaten
-		final JTextPane chatOutput = new JTextPane();
+		chatOutput = new JTextArea();
 		chatOutput.setEditable(false);
-		chatOutput.setText(user + " has joined the room!" + System.lineSeparator());
+//		chatOutput.setText(user + " has joined the room!" + System.lineSeparator());
 		scroll_chatOutput.setViewportView(chatOutput);
 		
 		
@@ -77,7 +59,7 @@ public class GUI {
 		scroll_userView.setBounds(408, 11, 166, 362);
 		frame.getContentPane().add(scroll_userView);
 		
-		JTextPane userView = new JTextPane();
+		JTextArea userView = new JTextArea();
 		userView.setEditable(false);
 		scroll_userView.setViewportView(userView);
 		// Fönster för din text
@@ -90,11 +72,9 @@ public class GUI {
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				output = userInput.getText();
-				s += user + ": " + userInput.getText() + System.lineSeparator();
-				
+//				s += user + ": " + userInput.getText() + System.lineSeparator();
+//				skicka till klienten sänd
 
-				
-				chatOutput.setText(s);
 				userInput.setText("");
 			}
 		});
@@ -105,13 +85,16 @@ public class GUI {
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				UserNameGUI logout = new UserNameGUI();
 				frame.setVisible(false);
 			}
 		});
 		btnLogout.setBounds(485, 477, 89, 23);
 		frame.getContentPane().add(btnLogout);
 		
+	}
+	
+	public void updateChatbox(String input) {
+		chatOutput.append(input);
 	}
 
 }
