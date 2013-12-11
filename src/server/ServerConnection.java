@@ -37,6 +37,7 @@ public class ServerConnection implements Runnable{
 		return receivedMessage;
 	}
 
+	//recieves input from client and pushes it to the server
 	public void update(){
 		String in = "";
 		while (!in.equals("/quit")){
@@ -48,9 +49,10 @@ public class ServerConnection implements Runnable{
 		}
 	}
 
+	//Checks that the first thing that the client sends isn't null
 	public String getClientName(){
 		String in = null;
-		//send("what is your name?");
+		send("what is your name?");
 		boolean isEmpty = true;
 		while (isEmpty){
 			in = receive();
@@ -63,6 +65,7 @@ public class ServerConnection implements Runnable{
 		return clientName;
 	}
 
+	//sets up io streams and sends self + client name to server
 	public void run() {
 		try {
 			out = new PrintWriter(socket.getOutputStream(), true);
@@ -71,6 +74,7 @@ public class ServerConnection implements Runnable{
 			update();
 			// afterwards, close the socket
 			socket.close();
+			server.removeFromList(clientName);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

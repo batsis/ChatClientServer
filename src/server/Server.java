@@ -11,7 +11,6 @@ public class Server {
 	private ServerSocket serverSocket  = null;
 	private Socket connectionToClient = null;
 	private BufferedReader clientListener = null;
-//	private ArrayList<ServerConnection> listOfConnections;
 	private HashMap<String, ServerConnection> listOfConnections;
 	
 	// init the listening server socket on the port specified
@@ -19,7 +18,6 @@ public class Server {
 		log("Setting up server socket...");
 		serverSocket = new ServerSocket(port);
 		log("Server socket setup complete.");
-//		listOfConnections = new ArrayList<ServerConnection>();
 		listOfConnections = new HashMap<String, ServerConnection>();
 	}
 	
@@ -33,13 +31,6 @@ public class Server {
 			
 			Thread newThread = new Thread(sc);
 			newThread.start();
-			
-			//TODO: få namnet från sc och spara i mapp
-			
-//			String clientName = sc.getClientName();
-//			System.out.println(clientName);
-//			listOfConnections.add(sc);
-			
 			log("Connection to client established.");
 			log("New thread: " + newThread.getName());
 		}
@@ -57,8 +48,11 @@ public class Server {
 	}
 	
 	public void sendToClients(String name, String input){
+		if (input.equals("/quit")){
+			return;
+		}
 		for(String s: listOfConnections.keySet()) 
-			//TODO: solla bort skickaren
+			//TODO: do not send to sender
 			listOfConnections.get(s).send(name + ": " + input);
 //			System.out.println("sending input " + input + " to: " + s);
 	}
@@ -74,8 +68,12 @@ public class Server {
 	
 	public void saveConnectionToMap(String name, ServerConnection sc){
 		listOfConnections.put(name, sc);
+		sendToClients("Server: ", name +" has connected to server");
 	}
 
+	public void removeFromList(String clientName) {
+		sendToClients("Server: ", clientName +" has disconnected");
+		listOfConnections.remove(clientName);
+		
+	}
 }
-
-

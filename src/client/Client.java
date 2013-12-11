@@ -65,10 +65,13 @@ public class Client implements Runnable {
 	
 	// write a message to the stream going to the server
 	public void send(String message){
-		log("Sending...");
+//		log("Sending...");
 		outStream.println(message);
 		outStream.flush();
-		log("Message sent.");
+		if(message.equals("/quit")){
+			System.exit(1);
+		}
+//		log("Message sent.");
 	}
 	
 	// read a message from the stream coming from the server
