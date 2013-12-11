@@ -8,6 +8,8 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JButton;
 
+import client.Client;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -21,6 +23,8 @@ public class GUI {
 	
 	private String user;
 	private String output, s = "";
+	
+	private Client client;
 	
 	private JTextArea chatOutput;
 	private JTextArea userView;
@@ -71,10 +75,7 @@ public class GUI {
 		JButton btnSend = new JButton("Send");
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				output = userInput.getText();
-//				s += user + ": " + userInput.getText() + System.lineSeparator();
-//				skicka till klienten sänd
-
+				client.send(userInput.getText());
 				userInput.setText("");
 			}
 		});
@@ -85,7 +86,8 @@ public class GUI {
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				frame.setVisible(false);
+				client.send("/quit");
+				System.exit(1);
 			}
 		});
 		btnLogout.setBounds(485, 477, 89, 23);
@@ -93,8 +95,16 @@ public class GUI {
 		
 	}
 	
-	public void updateChatbox(String input) {
-		chatOutput.append(input);
+	public void addToChatOutput(String input) {
+		if (input != null){
+			chatOutput.append(input + System.lineSeparator());	
+		}
+		
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+		
 	}
 
 }

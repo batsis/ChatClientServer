@@ -1,5 +1,7 @@
 package client;
 
+import gui_package.GUI;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,11 +13,11 @@ import java.util.Scanner;
 
 public class Client implements Runnable {
 
-	private Scanner sc;
 	private Socket connectionToServer = null;
 	private PrintWriter outStream     = null;
 	private BufferedReader inStream   = null;
 	private String name;
+	private GUI gui;
 	
 	//Konstruktor, tar emot ipadress och port, sedan kör connect
 	public Client(String serverAddress, int serverPort) throws IOException{
@@ -75,7 +77,7 @@ public class Client implements Runnable {
 	}
 	
 	// read a message from the stream coming from the server
-	public void receive(){
+	public String receive(){
 		log("Receiving...");
 
 		String receivedMessage = "";
@@ -84,7 +86,7 @@ public class Client implements Runnable {
 			
 			//if there is no message to recieve, just return
 			if (receivedMessage == null){
-				return;
+				return null;
 			}
 			
 		} catch (IOException e) {
@@ -92,7 +94,7 @@ public class Client implements Runnable {
 		}
 		//if a message is recieved
 		log("Message received!");
-		System.out.println(receivedMessage);
+		return receivedMessage;
 	}
 	
 	private void log(String message){
@@ -110,12 +112,17 @@ public class Client implements Runnable {
 	// this is what happens when the Thread is run
 	public void run() {
 		while(true){
-			receive();
+			
+			gui.addToChatOutput(receive());
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public void setGui(GUI gui){
+		this.gui = gui;
 	}
 }
