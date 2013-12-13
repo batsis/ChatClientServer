@@ -74,6 +74,7 @@ public class Server {
 		sendToClients("Server: ", clientName +" has disconnected");
 		log(clientName + " has disconnected");
 		listOfConnections.remove(clientName);
-
 	}
+
+	
 }
