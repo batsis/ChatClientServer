@@ -41,9 +41,9 @@ public class ServerConnection implements Runnable{
 	public void update(){
 		String in = "";
 		while (!in.equals("/quit")){
-			System.out.println("updating");
+			//			System.out.println("updating");
 			in = receive();
-			System.out.println(in);
+			//			System.out.println(in);
 			server.sendToClients(clientName, in);
 
 		}
@@ -60,7 +60,7 @@ public class ServerConnection implements Runnable{
 				isEmpty = false;
 			}
 		}
-//		System.out.println("DEBUG: name of client " + in);
+		//		System.out.println("DEBUG: name of client " + in);
 		clientName = in;
 		return clientName;
 	}
