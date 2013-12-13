@@ -3,7 +3,7 @@ package server;
 import java.io.IOException;
 
 public class StartServer {
-	
+
 	public static void main(String[] args) {
 		Server server = new Server();
 		try {
