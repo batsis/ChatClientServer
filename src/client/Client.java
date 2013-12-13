@@ -66,13 +66,13 @@ public class Client implements Runnable {
 
 	// write a message to the stream going to the server
 	public void send(String message){
-		//		log("Sending...");
+		//log("Sending...");
 		outStream.println(message);
 		outStream.flush();
 		if(message.equals("/quit")){
 			System.exit(1);
 		}
-		//		log("Message sent.");
+		//log("Message sent.");
 	}
 
 	// read a message from the stream coming from the server
@@ -111,13 +111,7 @@ public class Client implements Runnable {
 	// this is what happens when the Thread is run
 	public void run() {
 		while(true){
-
 			gui.addToChatOutput(receive());
-//			try {
-//				Thread.sleep(500);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
 		}
 	}
 
